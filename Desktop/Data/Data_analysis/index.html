@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- <link rel="import" href="grades.json"> -->
+    <script type="text/javascript" src="grades.js"></script>
+    <script src="https://www.kryogenix.org/code/browser/sorttable/sorttable.js"></script>
+    <script src="sorttable.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <!-- Bootstrap 4.0 -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Bootstrap 5.0 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+
+<style>
+    body{
+        background: #1f2427;
+        color: white;
+    }
+    td {
+        color: white;
+        text-align: center;
+        /* border-bottom: 0.5px solid black;
+        border-left: 0.5px solid black; */
+        margin: 0;
+        padding: 2px;
+    }
+    thead {
+        background: #252c30;
+        color: white;
+        border-bottom: 2px solid white;
+        border-top: 2px solid white;
+    }
+    .instruction{
+        text-align: left;
+        font-style: italic;
+    }
+</style>
+
+<body>
+    <div class="container text-center">
+        <div class="d-flex mt-4 justify-content-center">
+            <div class="mx-2 w-100">
+                <label for="yearInput">Year</label>
+                <select class="form-control" name="" id="yearInput">
+                    <option value="1">Select Year</option>
+                    <option value="2012-13">2012-13</option>
+                    <option value="2013-14">2013-14</option>
+                    <option value="2014-15">2014-15</option>
+                    <option value="2015-16">2015-16</option>
+                    <option value="2016-17">2016-17</option>
+                    <option value="2017-18">2017-18</option>
+                    <option value="2018-19">2018-19</option>
+                    <option value="2019-20">2019-20</option>
+                    <option value="2020-21">2020-21</option>
+                </select>
+            </div>
+            <div class="mx-2 w-100">
+                <label for="totStudentInput">Lowest Total Student</label>
+                <input class="form-control" type="text" id="totStudentInput" placeholder="Lowest total Students">
+            </div>
+            <div class="mx-2 w-100">
+                <label for="percentInput">Lowest Grade %</label>
+                <input class="form-control" type="text" id="percentInput" placeholder="Lowest grade %">
+            </div>
+            <div class="mx-2 w-100">
+                <label for="gradeInput">Grade</label>
+                <select class="form-control" name="" id="gradeInput">
+                    <option value="A">A</option>
+                    <option value="B">B</option>
+                    <option value="C">C</option>
+                    <option value="D">D</option>
+                    <option value="E">E</option>
+                    <option value="F">F</option>
+                    <option value="G">S</option>
+                    <option value="H">X</option>
+                </select>
+            </div>
+        </div>
+        <br/>
+        <div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox" id="removeIC">
+            <label class="form-check-label" for="flexSwitchCheckDefault">Remove IC Courses</label>
+        </div>
+        <Button class="btn btn-success my-2" onclick="myFuncion()">Find</Button>
+        <br/>
+        <div class="instruction"><span class="text-danger">* </span>Click on Table header to sort that column</div>
+        <div>
+            <table class="table table-striped sortable">
+                <thead>
+                    <tr>
+                        <!-- <th>S. No.</th> -->
+                        <th>Course Name</th>
+                        <th>Year</th>
+                        <th class="sorttable_numeric">Grade %</th>
+                        <th class="sorttable_numeric">Total Students</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+    <script>
+        function myFuncion(){
+            var icremove = document.getElementById('removeIC');
+            // console.log(cb.checked);
+            // console.log($('#removeIC:checked'));
+            $('tbody').html(function(){
+                return("");
+            })
+            let len = data.length;
+            var keyName, count = 0;
+            var objRes = { "hAp": 0, "hBp": 0, "hApName": "", "hBpName": "" };
+            for (var i = 0; i < len; i++) {
+                var myObject = data[i];
+                keyName = Object.keys(myObject)[0];
+                var keyValue = data[i][keyName];
+                for (var j = 0; j < keyValue.length; j++) {
+                    // var B = keyValue[j][3]['B'];
+                    var grade = $('#gradeInput option:selected').val();
+                    var xGrade;
+                    if(grade == "A")
+                    xGrade = keyValue[j][3]['A'] + keyValue[j][3]['A*'];
+                    else
+                    xGrade = keyValue[j][3][grade];
+                    var keyGradeNames = Object.keys(keyValue[j][3]);
+                    var totStudent = 0;
+                    for (var k = 0; k < keyGradeNames.length; k++) {
+                        totStudent = totStudent + keyValue[j][3][keyGradeNames[k]];
+                    }
+                    var total = $('#totStudentInput').val();
+                    var percent = $('#percentInput').val();
+                    if(total == "")
+                        total = "0";
+                    if(percent == "")
+                        percent = "0";
+                    total = parseInt(total, 10);
+                    percent = parseInt(percent, 10);
+                    var year = $('#yearInput option:selected').val();
+                    if(year == 1){
+                        year=keyValue[j][0];
+                    }
+                    // console.log(total, percent, year,grade, xGrade);
+                    // console.log(total);
+                    if (totStudent > total && year === keyValue[j][0] &&  (xGrade / totStudent * 100) > percent ) {
+                        var p = $('tbody').html();
+                        if((icremove.checked) == true){
+                            if(keyName!== "PHY102" && keyName!== "MTH101" && keyName!== "MTH102" && keyName!== "CHM101" && keyName!== "CHM102" && keyName!== "PHY101" && keyName!== "ESC101" && keyName!== "PHY103" && keyName!== "LIF101" && keyName!== "TA101" && keyName!== "TA202" && keyName!== "ESC201" && keyName!== "TA201"){
+                                $('tbody').html(function(){
+                                    var x = p + "<tr><td>" + keyName + "</td><td>" + keyValue[j][0] + "</td><td sorttable_customkey =" + (Math.round(xGrade * 100 / totStudent)) + ">" + Math.round(xGrade * 100 / totStudent) + "</td><td>" + totStudent + "</td></tr>"
+                                    return(x);
+                                });
+                            }
+                        }
+                        else {
+                            $('tbody').html(function () {
+                                var x = p + "<tr><td>" + keyName + "</td><td>" + keyValue[j][0] + "</td><td sorttable_customkey =" + (Math.round(xGrade * 100 / totStudent)) + ">" + Math.round(xGrade * 100 / totStudent) + "</td><td>" + totStudent + "</td></tr>"
+                                return (x);
+                            });
+                        }
+                        $('tbody tr').addClass("item");
+                    }
+                }
+            }
+        }
+    </script>
+</body>
+</html>
