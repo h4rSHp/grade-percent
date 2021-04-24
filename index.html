@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Document</title>
+    <title>Grade Percent</title>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <!-- <link rel="import" href="grades.json"> -->
@@ -35,7 +35,7 @@
         padding: 2px;
     }
     thead {
-        background: #252c30;
+        background: rgb(23, 27, 43);
         color: white;
         border-bottom: 2px solid white;
         border-top: 2px solid white;
@@ -44,12 +44,17 @@
         text-align: left;
         font-style: italic;
     }
+    @media screen and (max-width:600px){
+        .d-flex{
+            flex-wrap: wrap;
+        }
+    }
 </style>
 
 <body>
     <div class="container text-center">
         <div class="d-flex mt-4 justify-content-center">
-            <div class="mx-2 w-100">
+            <div class="mx-2 my-1 w-100">
                 <label for="yearInput">Year</label>
                 <select class="form-control" name="" id="yearInput">
                     <option value="1">Select Year</option>
@@ -64,15 +69,15 @@
                     <option value="2020-21">2020-21</option>
                 </select>
             </div>
-            <div class="mx-2 w-100">
+            <div class="mx-2 my-1 w-100">
                 <label for="totStudentInput">Lowest Total Student</label>
                 <input class="form-control" type="text" id="totStudentInput" placeholder="Lowest total Students">
             </div>
-            <div class="mx-2 w-100">
+            <div class="mx-2 my-1 w-100">
                 <label for="percentInput">Lowest Grade %</label>
                 <input class="form-control" type="text" id="percentInput" placeholder="Lowest grade %">
             </div>
-            <div class="mx-2 w-100">
+            <div class="mx-2 my-1 w-100">
                 <label for="gradeInput">Grade</label>
                 <select class="form-control" name="" id="gradeInput">
                     <option value="A">A</option>
