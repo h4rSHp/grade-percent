@@ -48,7 +48,9 @@
         flex-wrap: wrap;
     }
     label{
-        text-align:left;
+        margin-top: 5px;
+        width: 100%;
+        text-align: left;
     }
 </style>
 
@@ -95,11 +97,11 @@
         <br/>
         <div class="form-check form-switch">
             <input class="form-check-input" type="checkbox" id="removeIC">
-            <label class="form-check-label" for="flexSwitchCheckDefault">Remove IC Courses</label>
+            <label class="form-check-label" for="removeIC">Remove IC Courses</label>
         </div>
         <Button class="btn btn-success my-2" onclick="myFuncion()">Find</Button>
         <br/>
-        <div class="instruction"><span class="text-danger">* </span>Click on Table header to sort that column</div>
+        <div class="instruction"><span class="text-danger">* Click on Table column header to sort.</span></div>
         <div>
             <table class="table table-striped sortable">
                 <thead>
