@@ -19,6 +19,9 @@
     <!-- Bootstrap 5.0 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Icons -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Iceland&display=swap" rel="stylesheet">
 </head>
 
 <style>
@@ -29,8 +32,6 @@
     td {
         color: white;
         text-align: center;
-        /* border-bottom: 0.5px solid black;
-        border-left: 0.5px solid black; */
         margin: 0;
         padding: 2px;
     }
@@ -40,11 +41,11 @@
         border-bottom: 2px solid white;
         border-top: 2px solid white;
     }
-    .instruction{
+    .instruction {
         text-align: left;
         font-style: italic;
     }
-    .d-flex{
+    .d-flex {
         flex-wrap: wrap;
     }
     label{
@@ -52,15 +53,25 @@
         width: 100%;
         text-align: left;
     }
+    .mainHeading {
+        text-align: center;
+        margin-bottom: 24px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        font-family: "Iceland", cursive;
+        width: 100%;
+        background-color: #4d49f6;
+    }
 </style>
 
 <body>
+    <h3 class="mainHeading">Grade Percent</h3>
     <div class="container text-center">
         <div class="d-flex mt-4 justify-content-center">
             <div class="mx-2 my-1 w-100">
                 <label for="yearInput">Year</label>
                 <select class="form-control" name="" id="yearInput">
-                    <option value="1">Select Year</option>
+                    <option value="1">All Years</option>
                     <option value="2012-13">2012-13</option>
                     <option value="2013-14">2013-14</option>
                     <option value="2014-15">2014-15</option>
@@ -70,6 +81,15 @@
                     <option value="2018-19">2018-19</option>
                     <option value="2019-20">2019-20</option>
                     <option value="2020-21">2020-21</option>
+                </select>
+            </div>
+            <div class="mx-2 my-1 w-100">
+                <label for="semInput">Semester</label>
+                <select class="form-control" name="" id="semInput">
+                    <option value="0">All Semester</option>
+                    <option value="1">I</option>
+                    <option value="2">II</option>
+                    <option value="3">III</option>
                 </select>
             </div>
             <div class="mx-2 my-1 w-100">
@@ -101,7 +121,7 @@
         </div>
         <Button class="btn btn-success my-2" onclick="myFuncion()">Find</Button>
         <br/>
-        <div class="instruction"><span class="text-danger">* Click on Table column header to sort.</span></div>
+        <div class="instruction"><span class="text-danger">* Click on Table column header to sort that coloumn.</span></div>
         <div>
             <table class="table table-striped sortable">
                 <thead>
@@ -120,8 +140,6 @@
     <script>
         function myFuncion(){
             var icremove = document.getElementById('removeIC');
-            // console.log(cb.checked);
-            // console.log($('#removeIC:checked'));
             $('tbody').html(function(){
                 return("");
             })
@@ -157,9 +175,13 @@
                     if(year == 1){
                         year=keyValue[j][0];
                     }
+                    var sem = $('#semInput option:selected').val();
+                    if(sem == 0){
+                        sem = keyValue[j][1];
+                    }
                     // console.log(total, percent, year,grade, xGrade);
                     // console.log(total);
-                    if (totStudent > total && year === keyValue[j][0] &&  (xGrade / totStudent * 100) > percent ) {
+                    if (totStudent > total && year === keyValue[j][0] &&  (xGrade / totStudent * 100) > percent && sem===keyValue[j][1]) {
                         var p = $('tbody').html();
                         if((icremove.checked) == true){
                             if(keyName!== "PHY102" && keyName!== "MTH101" && keyName!== "MTH102" && keyName!== "CHM101" && keyName!== "CHM102" && keyName!== "PHY101" && keyName!== "ESC101" && keyName!== "PHY103" && keyName!== "LIF101" && keyName!== "TA101" && keyName!== "TA202" && keyName!== "ESC201" && keyName!== "TA201"){
