@@ -1,7 +1,7 @@
 # Grade Percent
 [Click here] to open the app
 ### Intro
-This calculator is a web-application, made using JS and designed using Bootstrap and CSS.
+This is a web-application made mainly using `JS` and designed using `Bootstrap` and `CSS`.
 #### Features
 > Based on the input you can find the grade percent.
 > Can sort each column by clicking on headers.
